@@ -2,6 +2,20 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser, registerUser, logoutUser } from "@/api/auth.api";
 import { useAuthStore } from "@/store/authStore";
+import type { User } from "@/types";
+
+export function saveUser(user: User) {
+  localStorage.setItem("user", JSON.stringify(user));
+}
+
+export function loadUser(): User | null {
+  try {
+    const raw = localStorage.getItem("user");
+    return raw ? (JSON.parse(raw) as User) : null;
+  } catch {
+    return null;
+  }
+}
 
 export function useLogin() {
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -13,6 +27,7 @@ export function useLogin() {
     onSuccess: (data) => {
       setAuth(data.accessToken, data.user);
       localStorage.setItem("refreshToken", data.refreshToken);
+      saveUser(data.user);
       const from = (location.state as { from?: string })?.from ?? "/";
       navigate(from, { replace: true });
     },
@@ -29,6 +44,7 @@ export function useRegister() {
     onSuccess: (data) => {
       setAuth(data.accessToken, data.user);
       localStorage.setItem("refreshToken", data.refreshToken);
+      saveUser(data.user);
       const from = (location.state as { from?: string })?.from ?? "/";
       navigate(from, { replace: true });
     },
@@ -44,6 +60,7 @@ export function useLogout() {
     if (rt) logoutUser(rt).catch(() => {});
     clearAuth();
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 }

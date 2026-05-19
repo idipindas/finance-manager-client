@@ -13,6 +13,7 @@ import CategoriesPage from "@/pages/CategoriesPage";
 import ShareTargetPage from "@/pages/ShareTargetPage";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
+import { loadUser } from "@/hooks/useAuth";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,8 +70,9 @@ function AppRoutes() {
     axios
       .post(`${API_BASE_URL}/api/auth/refresh`, { refreshToken: rt })
       .then(({ data }) => {
-        if (data.user) {
-          setAuth(data.accessToken, data.user);
+        const user = data.user ?? loadUser();
+        if (user) {
+          setAuth(data.accessToken, user);
         } else {
           setAccessToken(data.accessToken);
         }
