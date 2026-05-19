@@ -27,7 +27,7 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
         runtimeCaching: [
           {
-            urlPattern: /^http:\/\/localhost:5000\/api\/accounts/,
+            urlPattern: /\/api\/accounts/,
             handler: "NetworkFirst",
             options: {
               cacheName: "accounts-cache",
@@ -35,7 +35,7 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: /^http:\/\/localhost:5000\/api\/expenses/,
+            urlPattern: /\/api\/expenses/,
             handler: "NetworkFirst",
             options: {
               cacheName: "expenses-cache",
@@ -43,7 +43,7 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: /^http:\/\/localhost:5000\/api\/incomes/,
+            urlPattern: /\/api\/incomes/,
             handler: "NetworkFirst",
             options: {
               cacheName: "incomes-cache",

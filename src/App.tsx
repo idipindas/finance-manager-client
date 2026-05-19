@@ -11,6 +11,7 @@ import ExpensesPage from "@/pages/ExpensesPage";
 import IncomesPage from "@/pages/IncomesPage";
 import CategoriesPage from "@/pages/CategoriesPage";
 import axios from "axios";
+import { API_BASE_URL } from "@/config";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +36,7 @@ function AppRoutes() {
     const rt = localStorage.getItem("refreshToken");
     if (!rt) return;
     axios
-      .post("http://localhost:5000/api/auth/refresh", { refreshToken: rt })
+      .post(`${API_BASE_URL}/api/auth/refresh`, { refreshToken: rt })
       .then(({ data }) => {
         if (data.user) {
           setAuth(data.accessToken, data.user);

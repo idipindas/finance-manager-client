@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { AuthResponse } from "@/types";
+import { API_BASE_URL } from "@/config";
 
-const BASE = "http://localhost:5000/api/auth";
+const BASE = `${API_BASE_URL}/api/auth`;
 
 // Backend returns { success, accessToken, refreshToken, user } directly (no nested `data`)
 export const registerUser = (data: { name: string; email: string; password: string }) =>
