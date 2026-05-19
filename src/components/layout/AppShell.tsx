@@ -3,17 +3,23 @@ import Sidebar from "./Sidebar";
 import BottomNav from "./BottomNav";
 
 declare const __APP_VERSION__: string;
+declare const __BUILD_DATE__: string;
 
 export default function AppShell() {
   return (
     <div className="flex min-h-dvh bg-bg-base">
-      {/* Mobile: thin draggable strip at top for window-controls-overlay */}
+      {/* Mobile: draggable strip for window-controls-overlay */}
       <div className="md:hidden fixed top-0 inset-x-0 h-[env(titlebar-area-height,0px)] bg-bg-base z-50 [-webkit-app-region:drag] [app-region:drag]" />
 
-      {/* Version badge — top right, always visible */}
-      <div className="fixed top-2 right-3 z-50 pointer-events-none">
-        <span className="text-[10px] font-mono font-medium text-text-muted/60 bg-bg-card/80 border border-border/50 px-1.5 py-0.5 rounded-full backdrop-blur-sm">
+      {/* Version badge — sits just below the titlebar area */}
+      <div
+        className="fixed right-3 z-50"
+        style={{ top: "calc(env(titlebar-area-height, 0px) + 8px)" }}
+      >
+        <span className="flex items-center gap-1 text-[11px] font-mono font-semibold text-text-muted bg-bg-elevated border border-border px-2 py-0.5 rounded-full shadow-sm">
           v{__APP_VERSION__}
+          <span className="text-border">·</span>
+          <span className="text-[10px] font-normal">{__BUILD_DATE__}</span>
         </span>
       </div>
 

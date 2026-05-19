@@ -53,6 +53,9 @@ export default defineConfig({
   ],
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
+    __BUILD_DATE__: JSON.stringify(
+      new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "2-digit" })
+    ),
   },
   resolve: {
     alias: { "@": path.resolve(__dirname, "src") },
