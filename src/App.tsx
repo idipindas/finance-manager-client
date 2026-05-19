@@ -100,15 +100,14 @@ function AppRoutes() {
         <Route path="/expenses" element={<ExpensesPage />} />
         <Route path="/incomes" element={<IncomesPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
-      </Route>
-      <Route
+         <Route
         path="/share-target"
         element={
-          <RequireAuth>
             <ShareTargetPage />
-          </RequireAuth>
         }
       />
+      </Route>
+     
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
