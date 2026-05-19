@@ -16,6 +16,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overscroll-behavior: none;
+    /* Push content below the window-controls-overlay title bar area */
+    padding-top: env(titlebar-area-height, 0px);
   }
   #root {
     min-height: 100dvh;

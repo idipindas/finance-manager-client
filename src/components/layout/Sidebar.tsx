@@ -18,8 +18,8 @@ export default function Sidebar() {
 
   return (
     <aside className="hidden md:flex flex-col w-60 shrink-0 bg-bg-card border-r border-border min-h-screen sticky top-0">
-      <div className="px-5 py-6 border-b border-border">
-        <div className="flex items-center gap-2.5">
+      <div className="px-5 py-6 border-b border-border [app-region:drag] [-webkit-app-region:drag]">
+        <div className="flex items-center gap-2.5 [-webkit-app-region:no-drag]">
           <div className="w-8 h-8 rounded-lg gradient-violet flex items-center justify-center">
             <Sparkles size={16} className="text-white" />
           </div>
