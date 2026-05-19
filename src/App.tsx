@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useAuthStore } from "@/store/authStore";
 import AppShell from "@/components/layout/AppShell";
@@ -10,6 +10,7 @@ import AccountsPage from "@/pages/AccountsPage";
 import ExpensesPage from "@/pages/ExpensesPage";
 import IncomesPage from "@/pages/IncomesPage";
 import CategoriesPage from "@/pages/CategoriesPage";
+import ShareTargetPage from "@/pages/ShareTargetPage";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
 
@@ -24,7 +25,10 @@ const queryClient = new QueryClient({
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const token = useAuthStore((s) => s.accessToken);
-  if (!token) return <Navigate to="/login" replace />;
+  const location = useLocation();
+  if (!token) {
+    return <Navigate to="/login" state={{ from: location.pathname + location.search }} replace />;
+  }
   return <>{children}</>;
 }
 
@@ -65,6 +69,15 @@ function AppRoutes() {
         <Route path="/incomes" element={<IncomesPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
       </Route>
+      {/* Share target — full-screen, outside AppShell, still needs auth */}
+      <Route
+        path="/share-target"
+        element={
+          <RequireAuth>
+            <ShareTargetPage />
+          </RequireAuth>
+        }
+      />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

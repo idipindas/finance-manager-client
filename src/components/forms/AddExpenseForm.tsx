@@ -21,17 +21,23 @@ type FormData = z.infer<typeof schema>;
 interface Props {
   onSuccess: () => void;
   defaultAccountId?: string;
+  prefill?: {
+    amount?: number;
+    category?: string;
+    description?: string;
+    date?: string;
+  };
 }
 
 const inputClass =
   "w-full bg-bg-card border border-border rounded-btn px-3.5 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-accent transition-colors";
 
-export default function AddExpenseForm({ onSuccess, defaultAccountId }: Props) {
+export default function AddExpenseForm({ onSuccess, defaultAccountId, prefill }: Props) {
   const { mutateAsync, isPending } = useCreateExpense();
   const { data: accounts = [] } = useAccounts();
   const { data: categories = [] } = useCategories();
   const { mutateAsync: suggest } = useSuggestCategory();
-  const [catSearch, setCatSearch] = useState("");
+  const [catSearch, setCatSearch] = useState(prefill?.category ?? "");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const {
@@ -45,7 +51,10 @@ export default function AddExpenseForm({ onSuccess, defaultAccountId }: Props) {
     resolver: zodResolver(schema) as any,
     defaultValues: {
       accountId: defaultAccountId ?? "",
-      date: new Date().toISOString().split("T")[0],
+      date: prefill?.date ?? new Date().toISOString().split("T")[0],
+      amount: prefill?.amount,
+      category: prefill?.category ?? "",
+      description: prefill?.description ?? "",
     },
   });
 

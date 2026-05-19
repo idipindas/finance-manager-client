@@ -7,8 +7,13 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
       registerType: "autoUpdate",
-      includeAssets: ["icons/192.png", "icons/512.png"],
+      injectManifest: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+      },
       manifest: {
         name: "Finance Manager",
         short_name: "Finance",
@@ -24,48 +29,22 @@ export default defineConfig({
           { src: "/icons/192.png", sizes: "192x192", type: "image/png" },
           { src: "/icons/512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
         ],
-      },
-      workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
-        runtimeCaching: [
-          {
-            urlPattern: /\/api\/accounts/,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "accounts-cache",
-              expiration: { maxEntries: 50, maxAgeSeconds: 24 * 60 * 60 },
-            },
+        share_target: {
+          action: "/share-target",
+          method: "POST",
+          enctype: "multipart/form-data",
+          params: {
+            title: "title",
+            text: "text",
+            url: "url",
+            files: [
+              {
+                name: "receipt",
+                accept: ["image/png", "image/jpeg", "image/webp", "image/gif"],
+              },
+            ],
           },
-          {
-            urlPattern: /\/api\/expenses/,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "expenses-cache",
-              expiration: { maxEntries: 200, maxAgeSeconds: 24 * 60 * 60 },
-            },
-          },
-          {
-            urlPattern: /\/api\/incomes/,
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "incomes-cache",
-              expiration: { maxEntries: 200, maxAgeSeconds: 24 * 60 * 60 },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-            handler: "StaleWhileRevalidate",
-            options: { cacheName: "google-fonts-stylesheets" },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-            handler: "CacheFirst",
-            options: {
-              cacheName: "google-fonts-webfonts",
-              expiration: { maxEntries: 30, maxAgeSeconds: 365 * 24 * 60 * 60 },
-            },
-          },
-        ],
+        },
       },
     }),
   ],
