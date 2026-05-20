@@ -38,6 +38,39 @@ export interface Category {
   name: string;
 }
 
+export interface SplitParticipant {
+  name: string;
+  share: number;
+  isYou?: boolean;
+  isPaid: boolean;
+  paidAt?: string;
+}
+
+export interface Split {
+  _id: string;
+  userId: string;
+  title: string;
+  totalAmount: number;
+  paidBy: "self" | "friend";
+  friendName?: string;
+  participants: SplitParticipant[];
+  category: string;
+  date: string;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface SplitSummary {
+  youAreOwed: number;
+  youOwe: number;
+  net: number;
+}
+
+export interface Friend {
+  _id: string;
+  name: string;
+}
+
 export interface Budget {
   _id: string;
   category: string;

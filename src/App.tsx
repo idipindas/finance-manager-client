@@ -12,6 +12,8 @@ import IncomesPage from "@/pages/IncomesPage";
 import CategoriesPage from "@/pages/CategoriesPage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 import BudgetsPage from "@/pages/BudgetsPage";
+import FriendsPage from "@/pages/FriendsPage";
+import SplitsPage from "@/pages/SplitsPage";
 import ShareTargetPage from "@/pages/ShareTargetPage";
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
@@ -104,6 +106,8 @@ function AppRoutes() {
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/budgets" element={<BudgetsPage />} />
+        <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/splits" element={<SplitsPage />} />
          <Route
         path="/share-target"
         element={
