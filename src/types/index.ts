@@ -38,6 +38,18 @@ export interface Category {
   name: string;
 }
 
+export interface Budget {
+  _id: string;
+  category: string;
+  monthlyLimit: number;
+  month: number;
+  year: number;
+  spent: number;
+  remaining: number;
+  percentage: number;
+  isOverBudget: boolean;
+}
+
 export interface AuthResponse {
   success: boolean;
   accessToken: string;

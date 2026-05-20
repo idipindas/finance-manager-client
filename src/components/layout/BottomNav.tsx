@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Wallet, TrendingDown, TrendingUp, Tag } from "lucide-react";
+import { LayoutDashboard, TrendingDown, TrendingUp, BarChart2, PiggyBank } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
   { to: "/", icon: LayoutDashboard, label: "Home" },
-  { to: "/accounts", icon: Wallet, label: "Accounts" },
   { to: "/expenses", icon: TrendingDown, label: "Expenses" },
   { to: "/incomes", icon: TrendingUp, label: "Incomes" },
-  { to: "/categories", icon: Tag, label: "Categories" },
+  { to: "/budgets", icon: PiggyBank, label: "Budgets" },
+  { to: "/analytics", icon: BarChart2, label: "Analytics" },
 ];
 
 export default function BottomNav() {
